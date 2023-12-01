@@ -1,6 +1,5 @@
-use std::fs::File;
-use std::io::{self, BufRead, BufReader, Lines};
-use std::path::Path;
+use super::utils::char_digit_to_digit;
+use super::utils::read_lines_from_input_file;
 
 /*
 
@@ -29,33 +28,6 @@ In this example, the calibration values of these four lines are 12, 38, 15, and 
 
 Consider your entire calibration document. What is the sum of all of the calibration values?
 */
-
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where
-    P: AsRef<Path>,
-{
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
-}
-
-fn read_lines_from_input_file() -> io::Result<Lines<BufReader<File>>> {
-    let this_file_path = Path::new(file!());
-
-    let input_file_relative = &format!(
-        "{}{}",
-        this_file_path.parent().unwrap().display(),
-        "/input.txt"
-    );
-    let input_file_path = Path::new(input_file_relative.as_str());
-
-    println!("{}", input_file_path.display());
-
-    return read_lines(input_file_path);
-}
-
-fn char_digit_to_digit(char_digit: &char) -> usize {
-    return char_digit.to_digit(10).unwrap() as usize;
-}
 
 fn extract_calibation_value_from_line(line: &String) -> usize {
     let mut calibration_chars = Vec::<char>::new();
@@ -112,7 +84,7 @@ pub fn run() {
     }
 
     println!(
-        "Total calibration sum of all string lines: {}",
+        "Part 1 -> Total calibration sum of all string lines: {}",
         calibration_sum
     );
 }
