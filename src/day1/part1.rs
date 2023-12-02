@@ -1,5 +1,5 @@
-use super::utils::char_digit_to_digit;
 use super::utils::read_lines_from_input_file;
+use super::utils::vec_char_to_calibration_value;
 
 /*
 
@@ -29,6 +29,8 @@ In this example, the calibration values of these four lines are 12, 38, 15, and 
 Consider your entire calibration document. What is the sum of all of the calibration values?
 */
 
+const EXPECTED_ANSWER: usize = 53921;
+
 fn extract_calibation_value_from_line(line: &String) -> usize {
     let mut calibration_chars = Vec::<char>::new();
 
@@ -39,41 +41,13 @@ fn extract_calibation_value_from_line(line: &String) -> usize {
         }
     }
 
-    if calibration_chars.len() == 0 {
-        return 0;
-    }
-
-    if calibration_chars.len() == 1 {
-        let the_digit = char_digit_to_digit(calibration_chars.get(0).unwrap());
-
-        return String::from(format!("{}{}", the_digit, the_digit))
-            .parse()
-            .unwrap();
-    }
-
-    if calibration_chars.len() == 2 {
-        return String::from(format!(
-            "{}{}",
-            char_digit_to_digit(calibration_chars.get(0).unwrap()),
-            char_digit_to_digit(calibration_chars.get(1).unwrap())
-        ))
-        .parse()
-        .unwrap();
-    }
-
-    return String::from(format!(
-        "{}{}",
-        char_digit_to_digit(calibration_chars.get(0).unwrap()),
-        char_digit_to_digit(calibration_chars.get(calibration_chars.len() - 1).unwrap())
-    ))
-    .parse()
-    .unwrap();
+    return vec_char_to_calibration_value(&calibration_chars);
 }
 
 pub fn run() {
     let mut calibration_sum = 0;
 
-    let lines_result = read_lines_from_input_file();
+    let lines_result = read_lines_from_input_file(Option::None);
 
     if let Ok(lines) = lines_result {
         for line in lines {
@@ -82,6 +56,8 @@ pub fn run() {
             }
         }
     }
+
+    assert_eq!(calibration_sum, EXPECTED_ANSWER, "expected {}, got {}", EXPECTED_ANSWER, calibration_sum);
 
     println!(
         "Part 1 -> Total calibration sum of all string lines: {}",
