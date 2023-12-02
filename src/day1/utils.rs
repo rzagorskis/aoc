@@ -18,9 +18,7 @@ pub fn read_lines_from_input_file(file_name: Option<&str>) -> io::Result<Lines<B
         this_file_path.parent().unwrap().display(),
         file_name.unwrap_or("/input.txt")
     );
-    let input_file_path = Path::new(input_file_relative.as_str());
-
-    println!("{}", input_file_path.display());
+    let input_file_path = Path::new(input_file_relative);
 
     return read_lines(input_file_path);
 }
