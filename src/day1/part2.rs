@@ -52,7 +52,6 @@ fn extract_calibation_value_from_line(line: &String) -> usize {
 
         word_char_str.push(char);
 
-        // check if word_char_str has a substring for the word
         for (ix, word_char) in word_char_str.char_indices() {
             let key = &word_char_str[ix..word_char_str.len()];
             let optional_num_value = WORD_TO_NUMBER_MAP.get(key).cloned();
