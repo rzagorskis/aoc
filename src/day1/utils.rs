@@ -45,25 +45,25 @@ pub fn chars_to_two_digit_number(digit_one: &char, digit_two: Option<&char>) -> 
 }
 
 pub fn vec_char_to_calibration_value(calibration_chars: &Vec<char>) -> usize {
-  if calibration_chars.len() == 0 {
-      return 0;
-  }
+    if calibration_chars.len() == 0 {
+        return 0;
+    }
 
-  if calibration_chars.len() == 1 {
-      let the_digit = calibration_chars.get(0).unwrap();
+    if calibration_chars.len() == 1 {
+        let the_digit = calibration_chars.get(0).unwrap();
 
-      return chars_to_two_digit_number(the_digit, Some(the_digit));
-  }
+        return chars_to_two_digit_number(the_digit, Some(the_digit));
+    }
 
-  if calibration_chars.len() == 2 {
-      return chars_to_two_digit_number(
-          calibration_chars.get(0).unwrap(),
-          Some(calibration_chars.get(1).unwrap()),
-      );
-  }
+    if calibration_chars.len() == 2 {
+        return chars_to_two_digit_number(
+            calibration_chars.get(0).unwrap(),
+            Some(calibration_chars.get(1).unwrap()),
+        );
+    }
 
-  return chars_to_two_digit_number(
-      calibration_chars.get(0).unwrap(),
-      Some(calibration_chars.get(calibration_chars.len() - 1).unwrap()),
-  );
+    return chars_to_two_digit_number(
+        calibration_chars.get(0).unwrap(),
+        Some(calibration_chars.get(calibration_chars.len() - 1).unwrap()),
+    );
 }

@@ -52,7 +52,7 @@ fn extract_calibation_value_from_line(line: &String) -> usize {
 
         word_char_str.push(char);
 
-        for (ix, word_char) in word_char_str.char_indices() {
+        for (ix, _word_char) in word_char_str.char_indices() {
             let key = &word_char_str[ix..word_char_str.len()];
             let optional_num_value = WORD_TO_NUMBER_MAP.get(key).cloned();
 
@@ -73,7 +73,10 @@ fn extract_calibation_value_from_line(line: &String) -> usize {
 
     let calibration_value = vec_char_to_calibration_value(&calibration_chars);
 
-    println!("{} -> {:?} -> {}", line, &calibration_chars, &calibration_value);
+    println!(
+        "{} -> {:?} -> {}",
+        line, &calibration_chars, &calibration_value
+    );
 
     return calibration_value;
 }
@@ -92,7 +95,13 @@ pub fn run() {
         }
     }
 
-    assert_eq!(calibration_sum, EXPECTED_ANSWER.to_owned(), "expected {}, got {}", EXPECTED_ANSWER.to_owned(), calibration_sum);
+    assert_eq!(
+        calibration_sum,
+        EXPECTED_ANSWER.to_owned(),
+        "expected {}, got {}",
+        EXPECTED_ANSWER.to_owned(),
+        calibration_sum
+    );
 
     println!(
         "Part 2 -> Total calibration sum of all string lines: {}",

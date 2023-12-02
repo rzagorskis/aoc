@@ -57,7 +57,11 @@ pub fn run() {
         }
     }
 
-    assert_eq!(calibration_sum, EXPECTED_ANSWER, "expected {}, got {}", EXPECTED_ANSWER, calibration_sum);
+    assert_eq!(
+        calibration_sum, EXPECTED_ANSWER,
+        "expected {}, got {}",
+        EXPECTED_ANSWER, calibration_sum
+    );
 
     println!(
         "Part 1 -> Total calibration sum of all string lines: {}",
