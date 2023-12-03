@@ -1,4 +1,6 @@
-use super::utils::read_lines_from_input_file;
+use std::path::Path;
+
+use crate::io_utils::read_lines;
 use super::utils::vec_char_to_calibration_value;
 
 /*
@@ -47,7 +49,7 @@ fn extract_calibation_value_from_line(line: &String) -> usize {
 pub fn run() {
     let mut calibration_sum = 0;
 
-    let lines_result = read_lines_from_input_file(Option::None);
+    let lines_result = read_lines(Path::new("src/day1/input.txt"));
 
     if let Ok(lines) = lines_result {
         for line in lines {
