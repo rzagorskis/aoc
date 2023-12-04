@@ -39,7 +39,7 @@ static WORD_TO_NUMBER_MAP: phf::Map<&'static str, char> = phf_map! {
     "nine" => '9',
 };
 
-const EXPECTED_ANSWER: usize = 54676;
+const EXPECTED_ANSWER: usize = 54094;
 
 fn extract_calibation_value_from_line(line: &String) -> usize {
     let mut calibration_chars = Vec::<char>::new();

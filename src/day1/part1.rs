@@ -31,7 +31,7 @@ In this example, the calibration values of these four lines are 12, 38, 15, and 
 Consider your entire calibration document. What is the sum of all of the calibration values?
 */
 
-const EXPECTED_ANSWER: usize = 53921;
+const EXPECTED_ANSWER: usize = 54968;
 
 fn extract_calibation_value_from_line(line: &String) -> usize {
     let mut calibration_chars = Vec::<char>::new();
