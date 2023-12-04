@@ -118,37 +118,6 @@ fn is_symbol_char(the_char: &char) -> bool {
     return *the_char != BLANK_SYMBOL && !the_char.is_numeric();
 }
 
-// fn is_symbol_at_side(
-//     ix: usize,
-//     number: &NumericChar,
-//     line_meta: &LineMeta,
-//     this_line: &[u8],
-// ) -> bool {
-//     if number.ix == 0 {
-//         return false;
-//     }
-
-//     if number.ix == line_meta.len - 1 {
-//         return false;
-//     }
-
-//     if ix == 0 {
-//         let char_at_left = *this_line.get(number.ix - 1).unwrap() as char;
-
-//         if is_symbol_char(&char_at_left) {
-//             return true;
-//         }
-//     } else if ix == line_meta.num_chars.len() - 1 {
-//         let char_at_right = *this_line.get(number.ix + 1).unwrap() as char;
-
-//         if is_symbol_char(&char_at_right) {
-//             return true;
-//         }
-//     }
-
-//     return false;
-// }
-
 fn is_symbol_around(
     ix: usize,
     number: &NumericChar,
