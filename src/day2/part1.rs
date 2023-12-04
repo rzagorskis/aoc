@@ -28,31 +28,11 @@ In the example above, games 1, 2, and 5 would have been possible if the bag had 
 
 Determine which games would have been possible if the bag had been loaded with only 12 red cubes, 13 green cubes, and 14 blue cubes. What is the sum of the IDs of those games?
 
-Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
-Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
-Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
-
-
 */
 
-use crate::io_utils::read_lines;
+use crate::day2::utils::parse_games_from_lines;
 
-use self::game_eval_module::GameEval;
-
-#[derive(Debug)]
-pub struct GameSet {
-    red: Option<usize>,
-    green: Option<usize>,
-    blue: Option<usize>
-}
-
-#[derive(Debug)]
-pub struct Game {
-    id: usize,
-    sets: Vec<GameSet>,
-    ref_line: String,
-}
-
+use super::defs::Game;
 
 mod game_eval_module {
     use super::Game;
@@ -133,65 +113,8 @@ mod game_eval_module {
     }
 }
 
-fn parse_game(line: &str) -> Game {
-    let initial_split: Vec<&str> = line.split(":").collect();
-
-    assert_eq!(initial_split.len(), 2);
-
-    let game_meta_split: Vec<&str> = initial_split.get(0).unwrap().split(" ").collect();
-    let game_id: usize = game_meta_split.last().unwrap().parse().unwrap();
-    
-    let set_splits: Vec<&str> = initial_split.get(1).unwrap().split(";").collect();
-    let mut game_sets: Vec<GameSet> = Vec::with_capacity(set_splits.len());
-
-    for set in set_splits {
-        let collected_cubes: Vec<&str> = set.trim().split(", ").collect();
-
-        let mut red_cubes = Option::<usize>::None;
-        let mut green_cubes = Option::<usize>::None;
-        let mut blue_cubes = Option::<usize>::None;
-        
-        for collected_cube in collected_cubes {
-            let cube_meta: Vec<&str> = collected_cube.split(" ").collect();
-
-            let amount: usize = cube_meta.get(0).unwrap().parse().unwrap();
-            let cube_color = cube_meta.get(1).unwrap().to_owned();
-
-            match cube_color {
-                "red" => red_cubes = Option::Some(amount),
-                "green" => green_cubes = Option::Some(amount),
-                "blue" => blue_cubes = Option::Some(amount),
-                _other => {}
-            }
-        }
-
-        game_sets.push(GameSet { red: red_cubes, green: green_cubes, blue: blue_cubes })
-    }
-    
-    return Game {
-        id: game_id,
-        sets: game_sets,
-        ref_line: line.to_owned(),
-    }
-}
-
-fn parse_lines_into_games() -> Vec<Game> {
-    let lines_result = read_lines("src/day2/input.txt");
-    let mut parsed_games = Vec::<Game>::new();
-
-    if let Ok(lines) = lines_result {
-        for line in lines {
-            if let Ok(the_line) = line {
-                parsed_games.push(parse_game(&the_line))
-            }
-        }
-    }
-
-    return parsed_games;
-}
-
 fn eval_games(games: &Vec<Game>) -> game_eval_module::GameEvalResult {
-    let mut game_evals = Vec::<GameEval>::with_capacity(games.len());
+    let mut game_evals = Vec::<game_eval_module::GameEval>::with_capacity(games.len());
     let mut total_possible = 0;
     let mut sum_of_game_ids = 0;
 
@@ -218,7 +141,7 @@ fn eval_games(games: &Vec<Game>) -> game_eval_module::GameEvalResult {
 const EXPECTED_ANSWER: usize = 2563;
 
 pub fn run() {
-    let games = parse_lines_into_games();
+    let games = parse_games_from_lines();
     let eval_result = eval_games(&games);
 
     assert_eq!(EXPECTED_ANSWER, eval_result.sum_of_game_ids, "Expected {}, got {}", EXPECTED_ANSWER, eval_result.sum_of_game_ids);
