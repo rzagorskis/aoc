@@ -38,70 +38,9 @@ Take a seat in the large pile of colorful cards. How many points are they worth 
 
 */
 
-use std::collections::HashSet;
+use crate::day4::utils::{read_card_lines, parse_card_lines};
 
-use crate::io_utils::read_lines;
-
-#[derive(Debug)]
-struct CardState {
-    id: usize,
-    winning_numbers: HashSet<usize>,
-    my_numbers: HashSet<usize>,
-}
-
-fn read_card_lines() -> Vec<String> {
-    let mut card_lines = Vec::<String>::new();
-
-    let line_read_result = read_lines("src/day4/input.txt");
-
-    if let Ok(lines) = line_read_result {
-        for line in lines {
-            if let Ok(the_line) = line {
-                card_lines.push(the_line);
-            }
-        }
-    }
-
-    return card_lines;
-}
-
-fn parse_card_lines(card_lines: Vec<String>) -> Vec<CardState> {
-    let mut card_states = Vec::<CardState>::new();
-
-    for card_line in card_lines {
-        let first_split: Vec<&str> = card_line.split(":").collect();
-
-        // println!(
-        //     "{}, {}",
-        //     first_split.get(0).unwrap(),
-        //     first_split.get(1).unwrap()
-        // );
-
-        let numbers_split: Vec<&str> = first_split.get(1).unwrap().split(" | ").collect();
-
-        let winning_numbers: Result<HashSet<usize>, _> = numbers_split
-            .get(0)
-            .unwrap()
-            .split(" ")
-            .filter(|item| !item.is_empty())
-            .map(|item| item.parse())
-            .collect();
-
-        let my_numbers: Result<HashSet<usize>, _> = numbers_split
-            .get(1)
-            .unwrap()
-            .split(" ")
-            .filter(|item| !item.is_empty())
-            .map(|item| item.parse())
-            .collect();
-
-        if let (Ok(winning_numbers), Ok(my_numbers)) = (winning_numbers, my_numbers) {
-            card_states.push(CardState { id: 0, winning_numbers, my_numbers })
-        }
-    }
-
-    return card_states;
-}
+const EXPECTED_ANSWER: usize = 25231;
 
 pub fn run() {
     let card_lines = read_card_lines();
@@ -111,8 +50,8 @@ pub fn run() {
 
     for (ix, card) in cards.into_iter().enumerate() {
         let mut card_score = 0;
-        for win_number in card.winning_numbers {
-            if card.my_numbers.contains(&win_number) {
+        for win_number in card.1.winning_numbers {
+            if card.1.my_numbers.contains(&win_number) {
                 if card_score == 0 {
                     card_score = 1;
                 } else {
@@ -125,6 +64,8 @@ pub fn run() {
 
         total_card_points += card_score;        
     }
+
+    assert_eq!(EXPECTED_ANSWER, total_card_points);
 
     println!("Total card score -> {}", total_card_points);
 }
