@@ -10,15 +10,18 @@ where
     Ok(io::BufReader::new(file).lines())
 }
 
-// pub fn read_lines_from_input_file(file_name: Option<&str>) -> io::Result<Lines<BufReader<File>>> {
-//     let this_file_path = Path::new(file!());
+pub fn read_lines_fully(filename: &str) -> Vec<String> {
+    let mut the_lines = Vec::<String>::new();
 
-//     let input_file_relative = &format!(
-//         "{}{}",
-//         this_file_path.parent().unwrap().display(),
-//         file_name.unwrap_or("/input.txt")
-//     );
-//     let input_file_path = Path::new(input_file_relative);
+    let line_read_result = read_lines(filename);
 
-//     return read_lines(input_file_path);
-// }
+    if let Ok(lines) = line_read_result {
+        for line in lines {
+            if let Ok(the_line) = line {
+                the_lines.push(the_line);
+            }
+        }
+    }
+
+    return the_lines;
+}
