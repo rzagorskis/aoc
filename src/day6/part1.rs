@@ -78,6 +78,8 @@ fn parse_race_data() -> Vec<RaceData> {
     return race_data;
 }
 
+const EXPECTED_ANSWER: u32 = 138915;
+
 pub fn run() {
     let race_data = parse_race_data();
 
@@ -115,6 +117,8 @@ pub fn run() {
         println!("earliest - {}, latest - {}", button_hold_time_from_start, button_hold_time_from_end);
         println!("Variations: {}", winning_variations);
     }
+
+    assert_eq!(EXPECTED_ANSWER, winning_race_variations);
 
     println!("Total winning variations: {}", winning_race_variations);
 }
