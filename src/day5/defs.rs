@@ -62,3 +62,10 @@ pub struct MapEntryDescription {
     pub destination_range_end: i64,
     pub range_length: i64
 }
+
+#[derive(Debug, Clone, Copy)]
+pub struct SeedRangePair {
+    pub start: i64,
+    pub end: i64,
+    pub length: i64,
+}
