@@ -1,6 +1,9 @@
 use std::fs::File;
 use std::io::{self, BufRead, Read, Error};
 use std::path::Path;
+use std::str::FromStr;
+
+use num_traits::{FromPrimitive, Num};
 
 pub fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 where
@@ -24,4 +27,11 @@ pub fn read_lines_fully(filename: &str) -> Vec<String> {
     }
 
     return the_lines;
+}
+
+pub fn extract_numbers_from_line<T>(line: &str) -> Vec<T> 
+where
+    T: FromStr + FromPrimitive + Num
+{
+    return line.split_whitespace().filter_map(|item| item.parse::<T>().ok()).collect();
 }
