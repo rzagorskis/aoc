@@ -7,6 +7,7 @@ mod day4;
 mod day5;
 mod day6;
 mod day7;
+mod day8;
 
 mod io_utils;
 
@@ -29,5 +30,7 @@ fn main() {
     // day6::part2::run();
 
     // day7::part1::run();
-    day7::part2::run();
+    // day7::part2::run();
+
+    day8::part1::run();
 }
