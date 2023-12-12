@@ -10,6 +10,7 @@ mod day7;
 mod day8;
 
 mod io_utils;
+mod math;
 
 fn main() {
     //day1::part1::run();
@@ -32,5 +33,6 @@ fn main() {
     // day7::part1::run();
     // day7::part2::run();
 
-    day8::part1::run();
+    //day8::part1::run();
+    day8::part2::run();
 }
