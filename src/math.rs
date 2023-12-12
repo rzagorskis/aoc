@@ -1,3 +1,4 @@
+/// Greatest Common Divisor 
 pub fn gcd(a: u64, b: u64) -> u64 {
     if b == 0 {
         a
@@ -6,6 +7,7 @@ pub fn gcd(a: u64, b: u64) -> u64 {
     }
 }
 
+/// Least Common Multiplier 
 pub fn lcm(a: u64, b: u64) -> u64 {
     if a == 0 || b == 0 {
         0
