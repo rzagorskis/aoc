@@ -3,13 +3,13 @@ name = "aoc-2023"
 version = "0.1.0"
 edition = "2021"
 
-[[bin]]
-name = "aoc"
-path = "src/main.rs"
+# [[bin]]
+# name = "aoc"
+# path = "src/main.rs"
 
-[[bin]]
-name = "sbox"
-path = "src/_sandbox/main.rs"
+# [[bin]]
+# name = "sbox"
+# path = "src/_sandbox/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

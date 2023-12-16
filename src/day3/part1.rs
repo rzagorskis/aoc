@@ -272,6 +272,9 @@ fn analyse_schematic(schematic: Vec<String>) {
         }
     }
 
+    valid_parts.len();
+
+
     let total_sum = calc_valid_parts_sum(valid_parts.iter().map(|part| part.1.clone()).collect());
 
     println!("Total sum of all valid parts: {}", total_sum);
