@@ -101,7 +101,7 @@ Figure out whether you have time to search for the nest by calculating the area 
 
 */
 
-use crate::{day10::utils::build_loop_chain, math::{picks_theorem, shoelace}};
+use crate::{day10::utils::build_loop_chain, math::{picks_theorem_inner_points, shoelace}};
 
 const EXPECTED_ANSWER: f64 = 325.0;
 
@@ -113,7 +113,8 @@ pub fn run() {
         .map(|item| (item.location.0 as f64, item.location.1 as f64))
         .collect::<Vec<_>>();
 
-    let inner_points = picks_theorem(shoelace(&xy_points), xy_points.len(), 0.0);
+    let area = shoelace(&xy_points);
+    let inner_points = picks_theorem_inner_points(area, xy_points.len(), 0);
 
     assert_eq!(EXPECTED_ANSWER, inner_points);
 

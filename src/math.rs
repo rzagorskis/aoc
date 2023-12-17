@@ -41,9 +41,21 @@ pub fn shoelace(points: &Vec<(f64, f64)>) -> f64 {
 }
 
 /// Picks theorem to find out how many inner points exist within a point boundary
+/// i = A - b/2 - h + 1
+/// 
 /// area = total area of defined boundary
 /// boundary_point_count = total points within the boundary
+/// h = holes within boundary (a donut shape will always have a hole size of 1)
+pub fn picks_theorem_inner_points(area: f64, boundary_point_count: usize, h: usize) -> f64 {
+    return area - (boundary_point_count / 2) as f64 - h as f64 + 1.0;
+}
+
+/// Picks theoream for area
+/// A = i + b/2 + h − 1
+/// 
+/// inner_points = total amount of known inner points within the boundary
+/// boundary_point_count = total points within the boundary
 /// h = holes within boundary
-pub fn picks_theorem(area: f64, boundary_point_count: usize, h: f64) -> f64 {
-    return area - (boundary_point_count / 2) as f64 - h + 1.0;
+pub fn picks_theorem_area(inner_points: usize, boundary_point_count: usize, h: usize) -> f64 {
+    return inner_points as f64 + (boundary_point_count / 2) as f64 + h as f64 - 1.0;
 }
