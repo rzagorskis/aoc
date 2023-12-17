@@ -24,6 +24,14 @@ pub enum Direction {
     West,
 }
 
+#[derive(Debug, Clone, Copy)]
+pub struct LocationMeta {
+    pub came_from: FromDirection,
+    pub location: PotentialGridLocation,
+    pub tile: Tile,
+}
+
+
 pub type FromDirection = Direction;
 
 #[derive(Eq, Hash, PartialEq)]
@@ -284,4 +292,98 @@ pub fn build() -> GridState {
         });
 
     return (starting_point_location, tile_grid, valid_move_map, direction_map);
+}
+
+pub fn build_loop_chain() -> Vec::<LocationMeta> {
+    let state = build();
+
+    println!("{:?}", state.0);
+  
+    // figure out the loop direction we can go first
+    // then once we have a direction, we can start the move loop
+    let starting_point = state.0;
+    let points: [(FromDirection, (isize, isize)); 4] = [
+        (
+            FromDirection::South,
+            (starting_point.0 as isize - 1, starting_point.1 as isize),
+        ),
+        (
+            FromDirection::North,
+            (starting_point.0 as isize + 1, starting_point.1 as isize),
+        ),
+        (
+            FromDirection::West,
+            (starting_point.0 as isize, starting_point.1 as isize + 1),
+        ),
+        (
+            FromDirection::East,
+            (starting_point.0 as isize, starting_point.1 as isize - 1),
+        ),
+    ];
+  
+    let current_point = points
+        .iter()
+        .find(|next_point| {
+            let item = get_grid_item(&next_point.1, &state);
+  
+            if let Some(item) = item {
+                // direction you're coming + the tile you're on now
+                let next_moves = state
+                    .2
+                    .get(&MoveDirectionCombo(next_point.0.clone(), item.clone()));
+  
+                println!(
+                    "Came from: {:?}, next moves: {:?}",
+                    next_point.0.clone(),
+                    next_moves
+                );
+  
+                if let Some(next_moves) = next_moves {
+                    if next_moves.contains(item) {
+                        return true;
+                    }
+                }
+            }
+  
+            return false;
+        })
+        .unwrap();
+  
+    // now that we have the effective starting point, already step of 1, we need to figure out from the point we're on now
+    // which direction we can go next and check the point at next location
+    let mut looping = true;
+    let mut direction_came_from = current_point.0.clone();
+    let mut current_point_temp = current_point.1.clone();
+  
+    let mut loop_chain = Vec::<LocationMeta>::new();
+    
+    while looping {
+      let current_points_tile = get_grid_item(&current_point_temp, &state).unwrap();
+  
+      loop_chain.push(LocationMeta {
+          came_from: direction_came_from,
+          location: current_point_temp.clone(),
+          tile: *current_points_tile,
+      });
+  
+      if *current_points_tile == Tile::StartingPoint {
+          looping = false;
+          break;
+      }
+  
+      let next_direction_state = state
+          .3
+          .get(&MoveDirectionCombo(
+              direction_came_from,
+              current_points_tile.clone(),
+          ))
+          .unwrap();
+  
+      let next_point = next_direction_state.calculate_next_point(&current_point_temp);
+  
+      direction_came_from = next_direction_state.prev_direction;
+      current_point_temp = next_point;
+    }
+
+    return loop_chain;
 }
