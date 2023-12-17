@@ -101,21 +101,9 @@ Figure out whether you have time to search for the nest by calculating the area 
 
 */
 
-use crate::{
-    day10::utils::{build_loop_chain, FromDirection, Tile},
-    math::{picks_theorem, shoelace},
-};
-
-use super::utils::PotentialGridLocation;
+use crate::{day10::utils::build_loop_chain, math::{picks_theorem, shoelace}};
 
 const EXPECTED_ANSWER: f64 = 325.0;
-
-#[derive(Debug, Clone, Copy)]
-struct LocationMeta {
-    came_from: FromDirection,
-    location: PotentialGridLocation,
-    tile: Tile,
-}
 
 pub fn run() {
     let loop_chain = build_loop_chain();
