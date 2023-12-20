@@ -279,6 +279,7 @@ fn calc_chunks(chunks: Vec::<Vec<StartGoal>>, total_to_process: usize) -> u32 {
 
 const EXPECTED_ANSWER: usize = 9_233_514;
 
+// overly complicated solution apparently... manhattan approach seems the best?
 pub fn run() {
     let expanded = expand_galaxy(INPUT.lines());
     let points = find_galaxy_locations(&expanded);

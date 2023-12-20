@@ -75,3 +75,10 @@ pub fn combination_formula(objects: usize, sample: usize) -> Option<usize> {
 pub fn factorial(n: usize) -> Option<usize> {
     (1..n).try_fold(n, usize::checked_mul)
 }
+
+/// Calculates the distance on a 2D plane
+/// 
+/// https://simple.wikipedia.org/wiki/Manhattan_distance
+pub fn manhattan_distance(x1: i64, y1: i64, x2: i64, y2: i64) -> i64 {
+    (x2 - x1).abs() + (y2 - y1).abs()
+}
