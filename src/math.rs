@@ -51,7 +51,27 @@ pub fn picks_theorem_inner_points(area: f64, boundary_point_count: usize, h: usi
 }
 
 /// Picks theoream for area
-/// A = i + b/2 + h − 1 = 8
+/// A = i + b/2 + h − 1
 pub fn picks_theorem_area(inner_points: usize, boundary_point_count: usize, h: usize) -> f64 {
     return inner_points as f64 + (boundary_point_count / 2) as f64 + h as f64 - 1.0;
+}
+
+/// Calculats how many distinct tuples exist between the amount of objects and the sample size (the amount of distinct numbers in a tuple)
+/// e.g. For 9 distinct numbers, where a unique tuple has 2 distinct numbers, there are a total of 36 distinct pairs
+/// 
+/// C(n,r) = n! / (r! * (n−r)!)
+pub fn combination_formula(objects: usize, sample: usize) -> Option<usize> {
+    if let (Some(objects_factorial), Some(sample_factorial), Some(diff_factorial)) = (
+        factorial(objects),
+        factorial(sample),
+        factorial(objects - sample),
+    ) {
+        return Some(objects_factorial / (sample_factorial * diff_factorial));
+    }
+
+    return None;
+}
+
+pub fn factorial(n: usize) -> Option<usize> {
+    (1..n).try_fold(n, usize::checked_mul)
 }

@@ -196,14 +196,17 @@ pub const fn is_point_within_grid(point: &PotentialGridLocation) -> bool {
     return point.0 >= 0 && point.1 >= 0;
 }
 
+const INPUT: &'static str = include_str!("input.txt");
+const SAMPLE: &'static str = include_str!("input_sample.txt");
+
 pub fn build() -> GridState {
     let mut starting_point_location: StartingPoint = (0, 0);
     let valid_move_map = build_valid_move_map();
     let direction_map = build_directional_move_map();
     let mut tile_grid = HashMap::<LineIndex, Vec<Tile>>::new();
 
-    read_lines_fully("src/day10/input.txt")
-        .iter()
+    INPUT
+        .lines()
         .enumerate()
         .for_each(|(line_ix, line)| {
             let mut line_tiles = Vec::<Tile>::with_capacity(line.len());

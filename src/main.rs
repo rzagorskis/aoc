@@ -10,9 +10,11 @@ mod day7;
 mod day8;
 mod day9;
 mod day10;
+mod day11;
 
 mod io_utils;
 mod math;
+mod path_finding;
 
 fn main() {
     //day1::part1::run();
@@ -42,5 +44,7 @@ fn main() {
     // day9::part2::run();
 
     // day10::part1::run();
-    day10::part2::run();
+    // day10::part2::run();
+
+    day11::part1::run();
 }
