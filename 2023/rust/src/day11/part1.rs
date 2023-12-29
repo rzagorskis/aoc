@@ -257,7 +257,7 @@ fn build_processing_chunks(all: &HashSet<StartGoal>) -> Vec::<Vec<StartGoal>> {
 }
 
 fn calc_chunks(chunks: Vec::<Vec<StartGoal>>, total_to_process: usize) -> u32 {
-    let remaining = Arc::new(AtomicUsize::new(total_to_process));
+    let remaining = AtomicUsize::new(total_to_process);
 
     println!("Total remaining: {}", remaining.load(Ordering::SeqCst));
 
